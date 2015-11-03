@@ -14,6 +14,13 @@
 		85611AE11BE827060079DC75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85611ADF1BE827060079DC75 /* LaunchScreen.storyboard */; };
 		85611AEC1BE827060079DC75 /* On_The_MapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611AEB1BE827060079DC75 /* On_The_MapTests.swift */; };
 		85611AF71BE827060079DC75 /* On_The_MapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611AF61BE827060079DC75 /* On_The_MapUITests.swift */; };
+		85611B061BE838AB0079DC75 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611B051BE838AB0079DC75 /* LoginViewController.swift */; };
+		85611B0B1BE8445A0079DC75 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85611B081BE8445A0079DC75 /* Roboto-Medium.ttf */; };
+		85611B0C1BE8445A0079DC75 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85611B091BE8445A0079DC75 /* Roboto-Regular.ttf */; };
+		85611B0D1BE8445A0079DC75 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85611B0A1BE8445A0079DC75 /* Roboto-Thin.ttf */; };
+		85611B101BE8560D0079DC75 /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611B0F1BE8560D0079DC75 /* UdacityClient.swift */; };
+		85611B121BE857230079DC75 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611B111BE857230079DC75 /* HTTPClient.swift */; };
+		85611B141BE8575E0079DC75 /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611B131BE8575E0079DC75 /* ParseClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +54,13 @@
 		85611AF21BE827060079DC75 /* On The MapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "On The MapUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85611AF61BE827060079DC75 /* On_The_MapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = On_The_MapUITests.swift; sourceTree = "<group>"; };
 		85611AF81BE827060079DC75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		85611B051BE838AB0079DC75 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		85611B081BE8445A0079DC75 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Medium.ttf"; path = "../../../../../Downloads/on the map assets/Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		85611B091BE8445A0079DC75 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Regular.ttf"; path = "../../../../../Downloads/on the map assets/Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		85611B0A1BE8445A0079DC75 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Thin.ttf"; path = "../../../../../Downloads/on the map assets/Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		85611B0F1BE8560D0079DC75 /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
+		85611B111BE857230079DC75 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		85611B131BE8575E0079DC75 /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +111,15 @@
 		85611AD51BE827060079DC75 /* On The Map */ = {
 			isa = PBXGroup;
 			children = (
+				85611B041BE837B40079DC75 /* ViewControllers */,
+				85611B0E1BE853730079DC75 /* Client */,
 				85611AD61BE827060079DC75 /* AppDelegate.swift */,
 				85611AD81BE827060079DC75 /* ViewController.swift */,
 				85611ADA1BE827060079DC75 /* Main.storyboard */,
-				85611ADD1BE827060079DC75 /* Assets.xcassets */,
 				85611ADF1BE827060079DC75 /* LaunchScreen.storyboard */,
 				85611AE21BE827060079DC75 /* Info.plist */,
+				85611ADD1BE827060079DC75 /* Assets.xcassets */,
+				85611B071BE843AB0079DC75 /* Resources */,
 			);
 			path = "On The Map";
 			sourceTree = "<group>";
@@ -123,6 +140,34 @@
 				85611AF81BE827060079DC75 /* Info.plist */,
 			);
 			path = "On The MapUITests";
+			sourceTree = "<group>";
+		};
+		85611B041BE837B40079DC75 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				85611B051BE838AB0079DC75 /* LoginViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		85611B071BE843AB0079DC75 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				85611B081BE8445A0079DC75 /* Roboto-Medium.ttf */,
+				85611B091BE8445A0079DC75 /* Roboto-Regular.ttf */,
+				85611B0A1BE8445A0079DC75 /* Roboto-Thin.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		85611B0E1BE853730079DC75 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				85611B0F1BE8560D0079DC75 /* UdacityClient.swift */,
+				85611B111BE857230079DC75 /* HTTPClient.swift */,
+				85611B131BE8575E0079DC75 /* ParseClient.swift */,
+			);
+			name = Client;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,7 +274,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85611B0B1BE8445A0079DC75 /* Roboto-Medium.ttf in Resources */,
 				85611AE11BE827060079DC75 /* LaunchScreen.storyboard in Resources */,
+				85611B0D1BE8445A0079DC75 /* Roboto-Thin.ttf in Resources */,
+				85611B0C1BE8445A0079DC75 /* Roboto-Regular.ttf in Resources */,
 				85611ADE1BE827060079DC75 /* Assets.xcassets in Resources */,
 				85611ADC1BE827060079DC75 /* Main.storyboard in Resources */,
 			);
@@ -256,6 +304,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85611B141BE8575E0079DC75 /* ParseClient.swift in Sources */,
+				85611B101BE8560D0079DC75 /* UdacityClient.swift in Sources */,
+				85611B121BE857230079DC75 /* HTTPClient.swift in Sources */,
+				85611B061BE838AB0079DC75 /* LoginViewController.swift in Sources */,
 				85611AD91BE827060079DC75 /* ViewController.swift in Sources */,
 				85611AD71BE827060079DC75 /* AppDelegate.swift in Sources */,
 			);
