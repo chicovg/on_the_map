@@ -11,19 +11,17 @@ import UIKit
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    
-    var udacityClient: UdacityClient!
+    @IBOutlet weak var passwordTextField: UITextField!    
+    let kSegueToMapAndTableId = "segueToMapAndTable"
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        udacityClient = UdacityClient()
         
         // REMOVE Before committing!!!!
         emailTextField.text = "guthrievictor@gmail.com"
-        passwordTextField.text = "22Chicks"
+        passwordTextField.text = "UBHDKhYPQtF1a78N"
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,8 +39,12 @@ class LoginViewController: UIViewController {
     
     @IBAction func login(sender: UIButton) {
         if let email = emailTextField.text, password = passwordTextField.text {
-            udacityClient.postNewSession(email, password: password, completionHandler: { () -> Void in
-                print("request completed!")
+            UdacityClient.sharedInstance.postNewSession(email, password: password, successHandler: { () -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.performSegueWithIdentifier(self.kSegueToMapAndTableId, sender: nil)
+                })
+            }, failureHandler:  { () -> Void in
+                    print("Login Failed!")
             })
         }
         

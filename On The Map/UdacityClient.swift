@@ -12,6 +12,8 @@ import Foundation
 
 class UdacityClient : HTTPClient {
     
+    static let sharedInstance = UdacityClient()
+    
     let kUdacityBaseUrl = "https://www.udacity.com/api"
     let kSessionPath = "/session"
     let kUsersPath = "/users"

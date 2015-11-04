@@ -21,6 +21,8 @@
 		85611B101BE8560D0079DC75 /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611B0F1BE8560D0079DC75 /* UdacityClient.swift */; };
 		85611B121BE857230079DC75 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611B111BE857230079DC75 /* HTTPClient.swift */; };
 		85611B141BE8575E0079DC75 /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611B131BE8575E0079DC75 /* ParseClient.swift */; };
+		85611B181BEA3D810079DC75 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611B171BEA3D810079DC75 /* UsersTableViewController.swift */; };
+		85611B1A1BEA3D9D0079DC75 /* UsersMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611B191BEA3D9D0079DC75 /* UsersMapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		85611B0F1BE8560D0079DC75 /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
 		85611B111BE857230079DC75 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		85611B131BE8575E0079DC75 /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
+		85611B171BEA3D810079DC75 /* UsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
+		85611B191BEA3D9D0079DC75 /* UsersMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersMapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				85611B051BE838AB0079DC75 /* LoginViewController.swift */,
+				85611B191BEA3D9D0079DC75 /* UsersMapViewController.swift */,
+				85611B171BEA3D810079DC75 /* UsersTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -306,9 +312,11 @@
 			files = (
 				85611B141BE8575E0079DC75 /* ParseClient.swift in Sources */,
 				85611B101BE8560D0079DC75 /* UdacityClient.swift in Sources */,
+				85611B181BEA3D810079DC75 /* UsersTableViewController.swift in Sources */,
 				85611B121BE857230079DC75 /* HTTPClient.swift in Sources */,
 				85611B061BE838AB0079DC75 /* LoginViewController.swift in Sources */,
 				85611AD91BE827060079DC75 /* ViewController.swift in Sources */,
+				85611B1A1BEA3D9D0079DC75 /* UsersMapViewController.swift in Sources */,
 				85611AD71BE827060079DC75 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
