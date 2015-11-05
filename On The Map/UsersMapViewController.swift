@@ -9,19 +9,25 @@
 import UIKit
 
 class UsersMapViewController: UIViewController {
+    
+    let kUnwindToLoginView = "unwindToLoginViewSegue"
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        ParseClient.sharedInstance.getStudentLocations({
+            locations in
+            print("fetched locations")
+        }) { () -> Void in
+            print("Could not fetch locations")
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
     
     // MARK: Navigation
 
@@ -30,10 +36,10 @@ class UsersMapViewController: UIViewController {
     @IBAction func logout(sender: UIBarButtonItem) {
         UdacityClient.sharedInstance.deleteSession({() -> Void in
             print("logged out")
-            // segue to login view
+            self.performSegueWithIdentifier(self.kUnwindToLoginView, sender: nil)
         }) { () -> Void in
             print("could not log out!")
-            // segue to login view
+            self.performSegueWithIdentifier(self.kUnwindToLoginView, sender: nil)
         }
     }
 

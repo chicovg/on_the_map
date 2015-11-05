@@ -182,8 +182,12 @@
                             <barButtonItem image="pin" style="plain" id="ffm-AJ-5HB"/>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <segue destination="DBs-xE-kzm" kind="unwind" identifier="unwindToLoginViewSegue" unwindAction="unwindToLoginView:" id="4Ct-l4-Dl2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9sq-8m-iar" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="DBs-xE-kzm" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2741" y="1084"/>
         </scene>

@@ -23,6 +23,7 @@
 		85611B141BE8575E0079DC75 /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611B131BE8575E0079DC75 /* ParseClient.swift */; };
 		85611B181BEA3D810079DC75 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611B171BEA3D810079DC75 /* UsersTableViewController.swift */; };
 		85611B1A1BEA3D9D0079DC75 /* UsersMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611B191BEA3D9D0079DC75 /* UsersMapViewController.swift */; };
+		85611B1D1BEAF0680079DC75 /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611B1C1BEAF0680079DC75 /* StudentLocation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		85611B131BE8575E0079DC75 /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
 		85611B171BEA3D810079DC75 /* UsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		85611B191BEA3D9D0079DC75 /* UsersMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersMapViewController.swift; sourceTree = "<group>"; };
+		85611B1C1BEAF0680079DC75 /* StudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 			children = (
 				85611B041BE837B40079DC75 /* ViewControllers */,
 				85611B0E1BE853730079DC75 /* Client */,
+				85611B1B1BEAF04A0079DC75 /* Model */,
 				85611AD61BE827060079DC75 /* AppDelegate.swift */,
 				85611AD81BE827060079DC75 /* ViewController.swift */,
 				85611ADA1BE827060079DC75 /* Main.storyboard */,
@@ -174,6 +177,14 @@
 				85611B131BE8575E0079DC75 /* ParseClient.swift */,
 			);
 			name = Client;
+			sourceTree = "<group>";
+		};
+		85611B1B1BEAF04A0079DC75 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				85611B1C1BEAF0680079DC75 /* StudentLocation.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,6 +324,7 @@
 				85611B141BE8575E0079DC75 /* ParseClient.swift in Sources */,
 				85611B101BE8560D0079DC75 /* UdacityClient.swift in Sources */,
 				85611B181BEA3D810079DC75 /* UsersTableViewController.swift in Sources */,
+				85611B1D1BEAF0680079DC75 /* StudentLocation.swift in Sources */,
 				85611B121BE857230079DC75 /* HTTPClient.swift in Sources */,
 				85611B061BE838AB0079DC75 /* LoginViewController.swift in Sources */,
 				85611AD91BE827060079DC75 /* ViewController.swift in Sources */,
