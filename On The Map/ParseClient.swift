@@ -12,6 +12,12 @@ class ParseClient : HTTPClient {
     
     static let sharedInstance = ParseClient()
     
+    var dateFormatter: NSDateFormatter = {
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = NSDateFormatter.dateFormatFromTemplate("MMM, d, yyyy, HH:mm", options: 0, locale: NSLocale.currentLocale())
+        return formatter
+    }()
+    
     let kStudentLocationUrl = "https://api.parse.com/1/classes/StudentLocation"
     
     let kParseAppIdHeader = "X-Parse-Application-Id"
@@ -79,27 +85,39 @@ class ParseClient : HTTPClient {
     }
     
     private func dictionaryToStudentLocation(dictionary: [String: AnyObject]) -> StudentLocation? {
-        var objectId: String
-        var uniqueKey: String
-        var firstName: String
-        var lastName: String
-        var mapString: String
-        var mediaURL: String
-        var latitude: Float
-        var longitude: Float
-        var createdAt: NSDate
-        var updatedAt: NSDate
+        var studentLocation: StudentLocation? = nil
         
-        if let oId = dictionary["objectId"] as? String {
-            objectId = oId
+        // if required attributes are present, create StudentLocation struct, else return nil
+        if let objectId = dictionary["objectId"] as? String,
+            firstName = dictionary["firstName"] as? String,
+            lastName = dictionary["lastName"] as? String,
+            mapString = dictionary["mapString"] as? String,
+            mediaURL = dictionary["mediaURL"] as? String,
+            latitude = dictionary["latitude"] as? NSNumber,
+            longitude = dictionary["longitude"] as? NSNumber {
+                studentLocation = StudentLocation(objectId: objectId, firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: latitude.floatValue, longitude: longitude.floatValue)
+        } else {
+            return nil
         }
         
-        if let uKey = dictionary["uniqueKey"] as? String {
-            
+        // add optional attributes if present
+        if let uniqueKey = dictionary["uniqueKey"] as? String {
+            studentLocation?.uniqueKey = uniqueKey
         }
         
+        if let createdAtString = dictionary["createdAt"] as? String {
+            if let createdAtDate = dateFormatter.dateFromString(createdAtString) {
+                studentLocation?.createdAt = createdAtDate
+            }
+        }
         
-        return nil
+        if let updatedAtString = dictionary["updatedAt"] as? String {
+            if let updatedAtDate = dateFormatter.dateFromString(updatedAtString) {
+                studentLocation?.updatedAt = updatedAtDate
+            }
+        }
+        
+        return studentLocation
     }
     
 }

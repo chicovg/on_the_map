@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C822FC51BEC152A00A3A15B /* UdacityClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C822FC41BEC152A00A3A15B /* UdacityClientTest.swift */; settings = {ASSET_TAGS = (); }; };
+		7C822FC81BEC165D00A3A15B /* ParseClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C822FC71BEC165D00A3A15B /* ParseClientTest.swift */; settings = {ASSET_TAGS = (); }; };
 		85611AD71BE827060079DC75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611AD61BE827060079DC75 /* AppDelegate.swift */; };
 		85611AD91BE827060079DC75 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611AD81BE827060079DC75 /* ViewController.swift */; };
 		85611ADC1BE827060079DC75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85611ADA1BE827060079DC75 /* Main.storyboard */; };
@@ -44,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7C822FC41BEC152A00A3A15B /* UdacityClientTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UdacityClientTest.swift; path = "On The MapTests/Client/UdacityClientTest.swift"; sourceTree = SOURCE_ROOT; };
+		7C822FC71BEC165D00A3A15B /* ParseClientTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseClientTest.swift; path = Client/ParseClientTest.swift; sourceTree = "<group>"; };
 		85611AD31BE827060079DC75 /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85611AD61BE827060079DC75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85611AD81BE827060079DC75 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +98,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C822FC61BEC153300A3A15B /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				7C822FC41BEC152A00A3A15B /* UdacityClientTest.swift */,
+				7C822FC71BEC165D00A3A15B /* ParseClientTest.swift */,
+			);
+			name = Client;
+			sourceTree = "<group>";
+		};
 		85611ACA1BE827060079DC75 = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +147,7 @@
 		85611AEA1BE827060079DC75 /* On The MapTests */ = {
 			isa = PBXGroup;
 			children = (
+				7C822FC61BEC153300A3A15B /* Client */,
 				85611AEB1BE827060079DC75 /* On_The_MapTests.swift */,
 				85611AED1BE827060079DC75 /* Info.plist */,
 			);
@@ -337,6 +351,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C822FC51BEC152A00A3A15B /* UdacityClientTest.swift in Sources */,
+				7C822FC81BEC165D00A3A15B /* ParseClientTest.swift in Sources */,
 				85611AEC1BE827060079DC75 /* On_The_MapTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -472,6 +488,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "On The Map/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.chicovg.udacitynanodegree.On-The-Map";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -483,6 +500,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "On The Map/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.chicovg.udacitynanodegree.On-The-Map";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -494,6 +512,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "On The MapTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.chicovg.udacitynanodegree.On-The-MapTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -506,6 +525,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = "On The MapTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.chicovg.udacitynanodegree.On-The-MapTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -556,6 +576,7 @@
 				85611AFD1BE827060079DC75 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		85611AFE1BE827060079DC75 /* Build configuration list for PBXNativeTarget "On The MapTests" */ = {
 			isa = XCConfigurationList;
@@ -564,6 +585,7 @@
 				85611B001BE827060079DC75 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		85611B011BE827060079DC75 /* Build configuration list for PBXNativeTarget "On The MapUITests" */ = {
 			isa = XCConfigurationList;
@@ -572,6 +594,7 @@
 				85611B031BE827060079DC75 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
