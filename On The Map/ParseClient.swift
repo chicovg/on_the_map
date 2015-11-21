@@ -14,7 +14,7 @@ class ParseClient : HTTPClient {
     
     var dateFormatter: NSDateFormatter = {
         var formatter = NSDateFormatter()
-        formatter.dateFormat = NSDateFormatter.dateFormatFromTemplate("MMM, d, yyyy, HH:mm", options: 0, locale: NSLocale.currentLocale())
+        formatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'"
         return formatter
     }()
     
@@ -27,20 +27,8 @@ class ParseClient : HTTPClient {
     let kParseRestApiKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
 
     
-    /*
-    let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
-    request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-    request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
-    let session = NSURLSession.sharedSession()
-    let task = session.dataTaskWithRequest(request) { data, response, error in
-    if error != nil { // Handle error...
-    return
-    }
-    println(NSString(data: data, encoding: NSUTF8StringEncoding))
-    }
-    task.resume()
-    */
     
+    /**  */
     func getStudentLocations(successHandler: (studentLocations:[StudentLocation]) -> Void, failureHandler: () -> Void) {
         let httpHeaders = [kParseAppIdHeader: kParseAppId, kParseRestApiKeyHeader : kParseRestApiKey]
         self.get(kStudentLocationUrl, httpHeaders: httpHeaders, completionHandler: {
@@ -95,7 +83,7 @@ class ParseClient : HTTPClient {
             mediaURL = dictionary["mediaURL"] as? String,
             latitude = dictionary["latitude"] as? NSNumber,
             longitude = dictionary["longitude"] as? NSNumber {
-                studentLocation = StudentLocation(objectId: objectId, firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: latitude.floatValue, longitude: longitude.floatValue)
+                studentLocation = StudentLocation(objectId: objectId, firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: latitude.doubleValue, longitude: longitude.doubleValue)
         } else {
             return nil
         }

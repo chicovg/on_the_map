@@ -8,6 +8,10 @@
 
 import UIKit
 
+let kUnwindToLoginView = "unwindToLoginViewSegue"
+let kUnwindToTableSeque = "unwindToTableViewSegue"
+let kUnwindToMapSeque = "unwindToMapViewSegue"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

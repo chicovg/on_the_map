@@ -15,12 +15,12 @@ struct StudentLocation {
     var lastName: String
     var mapString: String
     var mediaURL: String
-    var latitude: Float
-    var longitude: Float
+    var latitude: Double
+    var longitude: Double
     var createdAt: NSDate?
     var updatedAt: NSDate?
     
-    init(objectId: String, firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Float, longitude: Float){
+    init(objectId: String, firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double){
         self.objectId = objectId
         self.firstName = firstName
         self.lastName = lastName

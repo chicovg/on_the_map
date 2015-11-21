@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="zbv-fH-dpA">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -14,6 +13,14 @@
             <string>Roboto-Regular</string>
             <string>Roboto-Regular</string>
             <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
+        </mutableArray>
+        <mutableArray key="Roboto-Thin.ttf">
+            <string>Roboto-Thin</string>
+            <string>Roboto-Thin</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -168,8 +175,20 @@
                     <view key="view" contentMode="scaleToFill" id="evk-Xq-U8B">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fXf-hT-nlh">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                            </mapView>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fXf-hT-nlh" firstAttribute="top" secondItem="Ap6-8i-T0Q" secondAttribute="bottom" constant="-64" id="0dz-aB-XA5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fXf-hT-nlh" secondAttribute="trailing" constant="-20" id="NUn-7J-ViP"/>
+                            <constraint firstItem="fXf-hT-nlh" firstAttribute="leading" secondItem="evk-Xq-U8B" secondAttribute="leadingMargin" constant="-20" id="aAO-Wm-8Mh"/>
+                            <constraint firstItem="d5w-X1-USR" firstAttribute="top" secondItem="fXf-hT-nlh" secondAttribute="bottom" constant="-49" id="vTT-wE-9he"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="On The Map" id="zfW-38-Imq">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="Zae-xn-6my">
@@ -178,18 +197,136 @@
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="refresh" id="oRF-eF-cDc"/>
-                            <barButtonItem image="pin" style="plain" id="ffm-AJ-5HB"/>
+                            <barButtonItem systemItem="refresh" id="oRF-eF-cDc">
+                                <connections>
+                                    <action selector="refreshLocations:" destination="y2B-Va-LA5" id="3lS-q4-4GH"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="pin" style="plain" id="ffm-AJ-5HB">
+                                <connections>
+                                    <action selector="addLocation:" destination="y2B-Va-LA5" id="zRi-5m-7Vz"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="mapView" destination="fXf-hT-nlh" id="9M7-Ch-6jl"/>
                         <segue destination="DBs-xE-kzm" kind="unwind" identifier="unwindToLoginViewSegue" unwindAction="unwindToLoginView:" id="4Ct-l4-Dl2"/>
+                        <segue destination="Vbo-tv-PUS" kind="presentation" identifier="mapToInfoPostView" id="uB2-GR-EZL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9sq-8m-iar" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="DBs-xE-kzm" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2741" y="1084"/>
+        </scene>
+        <!--Info Posting View Controller-->
+        <scene sceneID="O66-36-GKY">
+            <objects>
+                <viewController id="Vbo-tv-PUS" customClass="InfoPostingViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZOb-ea-gg5"/>
+                        <viewControllerLayoutGuide type="bottom" id="MvY-Ir-J1J"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jUH-Ol-iyr">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Gj-Gy-1gx">
+                                <rect key="frame" x="532" y="28" width="48" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" red="0.31372549019607843" green="0.53725490196078429" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelPost:" destination="Vbo-tv-PUS" eventType="touchUpInside" id="VXN-Jv-LV6"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="MW6-al-1P1">
+                                <rect key="frame" x="238" y="68" width="124" height="71"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where are you" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2N-7X-nJE">
+                                        <rect key="frame" x="0.0" y="0.0" width="124" height="24"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="Roboto-Thin" family="Roboto" pointSize="20"/>
+                                        <color key="textColor" red="0.31372549019607843" green="0.53725490196078429" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="studying" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zf6-LF-FrD">
+                                        <rect key="frame" x="23" y="24" width="78" height="24"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="20"/>
+                                        <color key="textColor" red="0.31372549019607843" green="0.53725490196078429" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="today?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jY8-fE-BHz">
+                                        <rect key="frame" x="34" y="47" width="57" height="24"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="Roboto-Thin" family="Roboto" pointSize="20"/>
+                                        <color key="textColor" red="0.31372549019607843" green="0.53725490196078429" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <animations/>
+                            </stackView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="H6C-dZ-ZMg">
+                                <rect key="frame" x="0.0" y="148.5" width="600" height="351.5"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.31372549019607843" green="0.53725490196078429" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1D3-BZ-KGd">
+                                <rect key="frame" x="230" y="516" width="140" height="40"/>
+                                <animations/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="140" id="94c-f1-an2"/>
+                                    <constraint firstAttribute="height" constant="40" id="Pvh-1r-GJk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
+                                <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                                <state key="normal" title="Find on the Map">
+                                    <color key="titleColor" red="0.25098039215686274" green="0.45882352941176469" blue="0.64313725490196083" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="findPlaceOnMap:" destination="Vbo-tv-PUS" eventType="touchUpInside" id="1DE-cd-p9p"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="H6C-dZ-ZMg" firstAttribute="leading" secondItem="jUH-Ol-iyr" secondAttribute="leadingMargin" constant="-20" id="DVW-KD-2ne"/>
+                            <constraint firstItem="MW6-al-1P1" firstAttribute="top" secondItem="4Gj-Gy-1gx" secondAttribute="bottom" constant="10" id="EGc-ey-mVF"/>
+                            <constraint firstItem="MvY-Ir-J1J" firstAttribute="top" secondItem="H6C-dZ-ZMg" secondAttribute="bottom" constant="100" id="GG5-co-Ptb"/>
+                            <constraint firstItem="MW6-al-1P1" firstAttribute="centerX" secondItem="jUH-Ol-iyr" secondAttribute="centerX" id="Uic-MU-NaM"/>
+                            <constraint firstItem="1D3-BZ-KGd" firstAttribute="centerX" secondItem="jUH-Ol-iyr" secondAttribute="centerX" id="Z4O-no-oWi"/>
+                            <constraint firstItem="H6C-dZ-ZMg" firstAttribute="top" secondItem="MW6-al-1P1" secondAttribute="bottom" constant="10" id="aI5-ss-sqK"/>
+                            <constraint firstItem="4Gj-Gy-1gx" firstAttribute="trailing" secondItem="jUH-Ol-iyr" secondAttribute="trailingMargin" id="hYt-N5-ttb"/>
+                            <constraint firstItem="1D3-BZ-KGd" firstAttribute="top" secondItem="H6C-dZ-ZMg" secondAttribute="bottom" constant="16" id="phq-cJ-5Pr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="H6C-dZ-ZMg" secondAttribute="trailing" constant="-20" id="xRc-vG-o3U"/>
+                            <constraint firstItem="4Gj-Gy-1gx" firstAttribute="top" secondItem="ZOb-ea-gg5" secondAttribute="bottom" constant="8" id="xgX-yo-Z6Y"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="placeName" destination="H6C-dZ-ZMg" id="K7s-RJ-QpP"/>
+                        <segue destination="KPf-KW-0Gf" kind="unwind" identifier="unwindToMapViewSegue" unwindAction="unwindToMapView:" id="oNm-zk-9J5"/>
+                        <segue destination="KPf-KW-0Gf" kind="unwind" identifier="unwindToTableViewSegue" unwindAction="unwindToTableView:" id="z6S-Wo-H8c"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w49-1i-saA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="KPf-KW-0Gf" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3593" y="1438"/>
         </scene>
         <!--On The Map-->
         <scene sceneID="WJX-nn-dwp">
@@ -201,12 +338,27 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="hgc-kX-Ocn">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="studentLocationCell" textLabel="jZC-8k-tsd" imageView="Vbi-WN-DtO" style="IBUITableViewCellStyleDefault" id="hgc-kX-Ocn">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hgc-kX-Ocn" id="Zq3-Ah-8Vy">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jZC-8k-tsd">
+                                            <rect key="frame" x="62" y="0.0" width="523" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="pin" id="Vbi-WN-DtO">
+                                            <rect key="frame" x="15" y="5" width="32" height="32"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <animations/>
+                                        </imageView>
+                                    </subviews>
                                     <animations/>
                                 </tableViewCellContentView>
                                 <animations/>
@@ -220,13 +372,24 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="On The Map" id="rSb-E8-KOm">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Q8n-kh-y6F"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Q8n-kh-y6F">
+                            <connections>
+                                <action selector="logout:" destination="BgO-zx-N9e" id="Nck-B6-5Lg"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="refresh" id="9H9-ex-c4m"/>
-                            <barButtonItem image="pin" id="qos-RZ-Zw0"/>
+                            <barButtonItem image="pin" id="qos-RZ-Zw0">
+                                <connections>
+                                    <action selector="addLocation:" destination="BgO-zx-N9e" id="ZjB-9g-2x5"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="Vbo-tv-PUS" kind="presentation" identifier="tableToInfoPostView" id="PJA-LR-Dql"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WmF-Mh-6NF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -298,4 +461,7 @@
         <image name="pin" width="32" height="32"/>
         <image name="udacity" width="256" height="256"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="PJA-LR-Dql"/>
+    </inferredMetricsTieBreakers>
 </document>

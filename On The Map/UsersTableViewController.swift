@@ -9,87 +9,83 @@
 import UIKit
 
 class UsersTableViewController: UITableViewController {
+    
+    let kTableToInfoPostView = "tableToInfoPostView"
+    let reuseIdentifier = "studentLocationCell"
+    
+    var locations: [StudentLocation] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        getLocations()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: Navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier != nil && segue.identifier == kTableToInfoPostView {
+            if let infoVC = segue.destinationViewController as? InfoPostingViewController {
+                infoVC.cancelSegue = kUnwindToTableSeque
+            }
+        }
+    }
+    
+    // MARK: Actions
+    @IBAction func addLocation(sender: UIBarButtonItem) {
+        performSegueWithIdentifier(kTableToInfoPostView, sender: nil)
+    }
+    
+    @IBAction func logout(sender: UIBarButtonItem) {
+        UdacityClient.sharedInstance.deleteSession({() -> Void in
+            print("logged out")
+            self.performSegueWithIdentifier(kUnwindToLoginView, sender: nil)
+            }) { () -> Void in
+                print("could not log out!")
+                self.performSegueWithIdentifier(kUnwindToLoginView, sender: nil)
+        }
+    }
+    
+    @IBAction func unwindToTableView(unwindSeque: UIStoryboardSegue) {}
 
     // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return locations.count
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath)
 
-        // Configure the cell...
+        let loc: StudentLocation = locations[indexPath.row]
+        cell.textLabel?.text = "\(loc.firstName) \(loc.lastName)"
 
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let loc: StudentLocation = locations[indexPath.row]
+        if let url = NSURL(string: loc.mediaURL) {
+            UIApplication.sharedApplication().openURL(url)
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    // MARK: helpers
+    private func getLocations() {
+        ParseClient.sharedInstance.getStudentLocations({
+            locations in
+            print("fetched locations")
+            self.locations = locations
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
+        }) { () -> Void in
+                print("Could not fetch locations")
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
