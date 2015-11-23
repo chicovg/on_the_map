@@ -17,6 +17,8 @@
             <string>Roboto-Regular</string>
             <string>Roboto-Regular</string>
             <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
+            <string>Roboto-Regular</string>
         </mutableArray>
         <mutableArray key="Roboto-Thin.ttf">
             <string>Roboto-Thin</string>
@@ -271,7 +273,7 @@
                                 <animations/>
                             </stackView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="H6C-dZ-ZMg">
-                                <rect key="frame" x="0.0" y="148.5" width="600" height="351.5"/>
+                                <rect key="frame" x="0.0" y="148" width="600" height="351.5"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.31372549019607843" green="0.53725490196078429" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -321,12 +323,64 @@
                         <outlet property="placeName" destination="H6C-dZ-ZMg" id="K7s-RJ-QpP"/>
                         <segue destination="KPf-KW-0Gf" kind="unwind" identifier="unwindToMapViewSegue" unwindAction="unwindToMapView:" id="oNm-zk-9J5"/>
                         <segue destination="KPf-KW-0Gf" kind="unwind" identifier="unwindToTableViewSegue" unwindAction="unwindToTableView:" id="z6S-Wo-H8c"/>
+                        <segue destination="mDH-H4-4Ph" kind="presentation" identifier="infoPostToPostMapView" id="7Yd-Mt-cNY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w49-1i-saA" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="KPf-KW-0Gf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3593" y="1438"/>
+        </scene>
+        <!--Info Posting Map View Controller-->
+        <scene sceneID="p8n-qM-dKS">
+            <objects>
+                <viewController id="mDH-H4-4Ph" customClass="InfoPostingMapViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DXq-l8-U41"/>
+                        <viewControllerLayoutGuide type="bottom" id="nZg-Zi-BIi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aGh-po-xyv">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6fj-lz-9Jn">
+                                <rect key="frame" x="534" y="20" width="46" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancel:" destination="mDH-H4-4Ph" eventType="touchUpInside" id="Wg6-w5-MOV"/>
+                                </connections>
+                            </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="S9E-Er-WB3">
+                                <rect key="frame" x="0.0" y="148" width="600" height="454"/>
+                                <animations/>
+                            </mapView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KCb-r7-GK8">
+                                <rect key="frame" x="20" y="50" width="560" height="90"/>
+                                <animations/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" red="0.25098039215686274" green="0.45882352941176469" blue="0.64313725490196083" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="infoPostMapView" destination="S9E-Er-WB3" id="70C-rd-DKl"/>
+                        <outlet property="urlValue" destination="KCb-r7-GK8" id="gsP-hV-ZXm"/>
+                        <segue destination="7UZ-zP-QYH" kind="unwind" identifier="unwindToTableViewSegue" unwindAction="unwindToTableView:" id="R0r-Gq-7Tx"/>
+                        <segue destination="7UZ-zP-QYH" kind="unwind" identifier="unwindToMapViewSegue" unwindAction="unwindToMapView:" id="X8I-ho-vJD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1st-na-xMk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="7UZ-zP-QYH" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="4297" y="1438"/>
         </scene>
         <!--On The Map-->
         <scene sceneID="WJX-nn-dwp">
@@ -462,6 +516,6 @@
         <image name="udacity" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="PJA-LR-Dql"/>
+        <segue reference="uB2-GR-EZL"/>
     </inferredMetricsTieBreakers>
 </document>

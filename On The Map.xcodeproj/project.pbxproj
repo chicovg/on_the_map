@@ -11,6 +11,8 @@
 		7C822FC81BEC165D00A3A15B /* ParseClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C822FC71BEC165D00A3A15B /* ParseClientTest.swift */; };
 		85126C3A1C0115900016B131 /* InfoPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85126C391C0115900016B131 /* InfoPostingViewController.swift */; };
 		8540AE6B1BF60E24000C9405 /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8540AE6A1BF60E24000C9405 /* LocationAnnotation.swift */; };
+		8540DF161C039D7F00A6FC3A /* InfoPostingMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8540DF151C039D7F00A6FC3A /* InfoPostingMapViewController.swift */; };
+		8540DF181C03A26C00A6FC3A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8540DF171C03A26C00A6FC3A /* CoreLocation.framework */; };
 		855C0BB11BF219D200EEFF34 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855C0BB01BF219D200EEFF34 /* LocationTableViewCell.swift */; };
 		85611AD71BE827060079DC75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611AD61BE827060079DC75 /* AppDelegate.swift */; };
 		85611AD91BE827060079DC75 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85611AD81BE827060079DC75 /* ViewController.swift */; };
@@ -53,6 +55,8 @@
 		7C822FC71BEC165D00A3A15B /* ParseClientTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseClientTest.swift; path = Client/ParseClientTest.swift; sourceTree = "<group>"; };
 		85126C391C0115900016B131 /* InfoPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPostingViewController.swift; sourceTree = "<group>"; };
 		8540AE6A1BF60E24000C9405 /* LocationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationAnnotation.swift; sourceTree = "<group>"; };
+		8540DF151C039D7F00A6FC3A /* InfoPostingMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPostingMapViewController.swift; sourceTree = "<group>"; };
+		8540DF171C03A26C00A6FC3A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		855C0BB01BF219D200EEFF34 /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
 		85611AD31BE827060079DC75 /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85611AD61BE827060079DC75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8540DF181C03A26C00A6FC3A /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +121,7 @@
 		85611ACA1BE827060079DC75 = {
 			isa = PBXGroup;
 			children = (
+				8540DF171C03A26C00A6FC3A /* CoreLocation.framework */,
 				85611AD51BE827060079DC75 /* On The Map */,
 				85611AEA1BE827060079DC75 /* On The MapTests */,
 				85611AF51BE827060079DC75 /* On The MapUITests */,
@@ -176,6 +182,7 @@
 				85611B191BEA3D9D0079DC75 /* UsersMapViewController.swift */,
 				85611B171BEA3D810079DC75 /* UsersTableViewController.swift */,
 				85126C391C0115900016B131 /* InfoPostingViewController.swift */,
+				8540DF151C039D7F00A6FC3A /* InfoPostingMapViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -351,6 +358,7 @@
 				85611B121BE857230079DC75 /* HTTPClient.swift in Sources */,
 				85611B061BE838AB0079DC75 /* LoginViewController.swift in Sources */,
 				855C0BB11BF219D200EEFF34 /* LocationTableViewCell.swift in Sources */,
+				8540DF161C039D7F00A6FC3A /* InfoPostingMapViewController.swift in Sources */,
 				85611AD91BE827060079DC75 /* ViewController.swift in Sources */,
 				85611B1A1BEA3D9D0079DC75 /* UsersMapViewController.swift in Sources */,
 				85126C3A1C0115900016B131 /* InfoPostingViewController.swift in Sources */,
