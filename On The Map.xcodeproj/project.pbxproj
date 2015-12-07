@@ -31,6 +31,8 @@
 		85611B271BECF67F0079DC75 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85611B241BECF67F0079DC75 /* Roboto-Medium.ttf */; };
 		85611B281BECF67F0079DC75 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85611B251BECF67F0079DC75 /* Roboto-Regular.ttf */; };
 		85611B291BECF67F0079DC75 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85611B261BECF67F0079DC75 /* Roboto-Thin.ttf */; };
+		85637AD61C15B9CA00B5FCA0 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85637AD51C15B9CA00B5FCA0 /* FBSDKCoreKit.framework */; };
+		857A9C7A1C133ECA00335B93 /* StudentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857A9C791C133ECA00335B93 /* StudentInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		85611B241BECF67F0079DC75 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		85611B251BECF67F0079DC75 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		85611B261BECF67F0079DC75 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		85637AD51C15B9CA00B5FCA0 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		857A9C791C133ECA00335B93 /* StudentInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8540DF181C03A26C00A6FC3A /* CoreLocation.framework in Frameworks */,
+				85637AD61C15B9CA00B5FCA0 /* FBSDKCoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,7 +126,7 @@
 		85611ACA1BE827060079DC75 = {
 			isa = PBXGroup;
 			children = (
-				8540DF171C03A26C00A6FC3A /* CoreLocation.framework */,
+				85637AD41C15B98E00B5FCA0 /* Frameworks */,
 				85611AD51BE827060079DC75 /* On The Map */,
 				85611AEA1BE827060079DC75 /* On The MapTests */,
 				85611AF51BE827060079DC75 /* On The MapUITests */,
@@ -213,8 +218,18 @@
 				85611B1C1BEAF0680079DC75 /* StudentLocation.swift */,
 				855C0BB01BF219D200EEFF34 /* LocationTableViewCell.swift */,
 				8540AE6A1BF60E24000C9405 /* LocationAnnotation.swift */,
+				857A9C791C133ECA00335B93 /* StudentInfo.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		85637AD41C15B98E00B5FCA0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				85637AD51C15B9CA00B5FCA0 /* FBSDKCoreKit.framework */,
+				8540DF171C03A26C00A6FC3A /* CoreLocation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,6 +373,7 @@
 				85611B121BE857230079DC75 /* HTTPClient.swift in Sources */,
 				85611B061BE838AB0079DC75 /* LoginViewController.swift in Sources */,
 				855C0BB11BF219D200EEFF34 /* LocationTableViewCell.swift in Sources */,
+				857A9C7A1C133ECA00335B93 /* StudentInfo.swift in Sources */,
 				8540DF161C039D7F00A6FC3A /* InfoPostingMapViewController.swift in Sources */,
 				85611AD91BE827060079DC75 /* ViewController.swift in Sources */,
 				85611B1A1BEA3D9D0079DC75 /* UsersMapViewController.swift in Sources */,
@@ -442,6 +458,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "~/Documents/FacebookSDK";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -487,6 +504,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "~/Documents/FacebookSDK";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

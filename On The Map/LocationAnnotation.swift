@@ -16,8 +16,8 @@ class LocationAnnotation : NSObject, MKAnnotation {
     
     init(name: String, url: String, coordinate: CLLocationCoordinate2D){
         self.name = name
-        self.url = url
         self.coordinate = coordinate
+        self.url = url
         
         super.init()
     }

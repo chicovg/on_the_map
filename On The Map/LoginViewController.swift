@@ -22,6 +22,12 @@ class LoginViewController: UIViewController {
         // REMOVE Before committing!!!!
         emailTextField.text = "guthrievictor@gmail.com"
         passwordTextField.text = "UBHDKhYPQtF1a78N"
+        
+        emailTextField.leftView = UIView.init(frame: CGRectMake(0, 0, 5, 20))
+        emailTextField.leftViewMode = UITextFieldViewMode.Always
+        
+        passwordTextField.leftView = UIView.init(frame: CGRectMake(0, 0, 5, 20))
+        passwordTextField.leftViewMode = UITextFieldViewMode.Always
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,7 +42,6 @@ class LoginViewController: UIViewController {
     }
     
     // MARK: Actions
-    
     @IBAction func login(sender: UIButton) {
         if let email = emailTextField.text, password = passwordTextField.text {
             UdacityClient.sharedInstance.postNewSession(email, password: password, successHandler: { () -> Void in
@@ -44,7 +49,7 @@ class LoginViewController: UIViewController {
                     self.performSegueWithIdentifier(self.kSegueToMapAndTableId, sender: nil)
                 })
             }, failureHandler:  { () -> Void in
-                    print("Login Failed!")
+                self.displayAlert("Error", message: "Login Failed", actionTitle: "Dismiss")
             })
         }
         
@@ -56,5 +61,11 @@ class LoginViewController: UIViewController {
     
     @IBAction func unwindToLoginView(unwindSeque: UIStoryboardSegue) {
         
+    }
+    
+    private func displayAlert(title: String, message: String, actionTitle: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: actionTitle, style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 }

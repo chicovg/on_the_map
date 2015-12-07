@@ -9,7 +9,7 @@
 import Foundation
 
 struct StudentLocation {
-    var objectId: String
+    var objectId: String?
     var uniqueKey: String?
     var firstName: String
     var lastName: String
@@ -22,6 +22,16 @@ struct StudentLocation {
     
     init(objectId: String, firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double){
         self.objectId = objectId
+        self.firstName = firstName
+        self.lastName = lastName
+        self.mapString = mapString
+        self.mediaURL = mediaURL
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+    
+    init(uniqueKey: String, firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double){
+        self.uniqueKey = uniqueKey
         self.firstName = firstName
         self.lastName = lastName
         self.mapString = mapString

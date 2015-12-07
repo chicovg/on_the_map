@@ -21,6 +21,8 @@ class UdacityClient : HTTPClient {
     let kXsrfCookieName = "XSRF-TOKEN"
     let kXsrfTokenKey = "X-XSRF-TOKEN"
     
+    var currentUserKey: String?
+    
     /** Uses the Udacity session API to create a new session
         If the request is successful ..
         If the request fails, the specified failure handler will be executed
@@ -35,15 +37,31 @@ class UdacityClient : HTTPClient {
             
             if self.responseSuccessful(response, error: error) {
                 if let data = data {
-                    /*  success:
-                    Optional({"account": {"registered": true, "key": "628108572"}, "session": {"id": "1478090449S3f8b6354fb908708e7d0677bbdf1482e", "expiration": "2016-01-02T12:40:49.018640Z"}}) */
-                    /* failure:
-                    Optional({"status": 403, "error": "Account not found or invalid credentials."}) */
                     
-                    let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+                    // subset response data!
+                    let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
                     print(NSString(data: newData, encoding: NSUTF8StringEncoding))
-                    // TODO do I store the session id ??
                     
+                    // Parse data and get account details
+                    guard let parsedResult = self.dataToJson(newData) as? [String: AnyObject] else {
+                        print("Could not parse session response: '\(newData)'")
+                        failureHandler()
+                        return
+                    }
+                    
+                    guard let account = parsedResult["account"] as? [String: AnyObject] else {
+                        print("Could not get user account info from session response: '\(parsedResult)'")
+                        failureHandler()
+                        return
+                    }
+                    
+                    guard let accountKey = account["key"] as? String else {
+                        print("Could not get user key from account info in session response: '\(account)'")
+                        failureHandler()
+                        return
+                    }
+                    
+                    self.currentUserKey = accountKey
                     successHandler()
                     return
                 }
@@ -73,7 +91,6 @@ class UdacityClient : HTTPClient {
                     
                     let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
                     print(NSString(data: newData, encoding: NSUTF8StringEncoding))
-                    // TODO do I store the session id ??
                     
                     successHandler()
                     return
@@ -93,9 +110,9 @@ class UdacityClient : HTTPClient {
     println(NSString(data: newData, encoding: NSUTF8StringEncoding))
     }
     */
-    func getUserData(userId: String?, successHandler: () -> Void, failureHandler: () -> Void) {
+    func getUserData(userId: String?, successHandler: (studentInfo: StudentInfo) -> Void, failureHandler: () -> Void) {
         if let userId = userId {
-            let url = kUdacityBaseUrl + kUsersPath + userId
+            let url = kUdacityBaseUrl + kUsersPath + "/" + userId
             
             get(url, httpHeaders: nil, completionHandler: {
                 data, response, error in
@@ -105,9 +122,14 @@ class UdacityClient : HTTPClient {
                         
                         let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
                         print(NSString(data: newData, encoding: NSUTF8StringEncoding))
-                        // TODO do I store the session id ??
                         
-                        successHandler()
+                        if let studentInfo = self.studentLocationFromUserData(newData) {
+                            successHandler(studentInfo: studentInfo)
+                        } else {
+                            print("Could not get Student Info from User Data!")
+                            failureHandler()
+                        }
+                        
                         return
                     }
                 }
@@ -118,6 +140,26 @@ class UdacityClient : HTTPClient {
         }
     }
     
+    private func studentLocationFromUserData(data: NSData) -> StudentInfo? {
+        var studentInfo: StudentInfo? = nil
+        // Parse data and student info
+        guard let parsedResult = self.dataToJson(data) as? [String: AnyObject] else {
+            print("Could not parse user data: '\(data)'")
+            return studentInfo
+        }
+        
+        guard let user = parsedResult["user"] as? [String: AnyObject] else {
+            print("Could not get user from user data '\(parsedResult)'")
+            return studentInfo
+        }
+        
+        
+        if let key = user["key"] as? String, let firstName = user["first_name"] as? String, lastName = user["last_name"] as? String {
+            studentInfo = StudentInfo(uniqueKey: key, firstName: firstName, lastName: lastName)
+        }
+        
+        return studentInfo
+    }
     
     
 }

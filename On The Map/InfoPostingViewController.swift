@@ -9,12 +9,15 @@
 import UIKit
 import CoreLocation
 
-class InfoPostingViewController: UIViewController, CLLocationManagerDelegate {
-
-    @IBOutlet weak var placeName: UITextView!
+class InfoPostingViewController: UIViewController, UITextViewDelegate {
     
-    let locationManager = CLLocationManager()
+    
+    @IBOutlet weak var placeName: UITextView!
+    @IBOutlet weak var findOnMap: UIButton!
+    
+    let geocoder = CLGeocoder()
     let kinfoPostToPostMapViewSegue = "infoPostToPostMapView"
+    let kPlaceNamePlaceholder = "Enter Your Location Here"
     
     var cancelSegue: String?
     var currentCoordinate: CLLocationCoordinate2D?
@@ -23,12 +26,16 @@ class InfoPostingViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        locationManager.delegate = self
+        placeName.delegate = self
+        placeName.text = kPlaceNamePlaceholder
+        placeName.textAlignment = NSTextAlignment.Center
+        findOnMap.layer.cornerRadius = 8
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    
     }
     
     // MARK: Navigation
@@ -51,25 +58,48 @@ class InfoPostingViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBAction func findPlaceOnMap(sender: UIButton) {
         currentCoordinate = nil
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-    }
-    
-    // MARK: CLLocationManagerDelegate
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let loc = locations.first {
-            // transition to map with location
-            currentCoordinate = loc.coordinate
-            performSegueWithIdentifier(kinfoPostToPostMapViewSegue, sender: nil)
-        } else {
-            print("No locations returned!")
+        if let text = placeName.text {
+            geocoder.geocodeAddressString(text, completionHandler:  {
+                placemarks, error in
+                if let err = error {
+                    print("Error geocoding location \(err)")
+                    self.displayAlert("Error", message: "Cannot find that location!", actionTitle: "Try Again")
+                } else if let placemarks = placemarks, let pm = placemarks.first, let loc = pm.location {
+                    self.currentCoordinate = loc.coordinate
+                    self.performSegueWithIdentifier(self.kinfoPostToPostMapViewSegue, sender: nil)
+                }
+                self.placeName.text = self.kPlaceNamePlaceholder
+            })
         }
-        
-        locationManager.stopUpdatingLocation()
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print(error)
+    // MARK: UITextViewDelegate
+    func textViewDidBeginEditing(textView: UITextView) {
+        if textView.text == kPlaceNamePlaceholder {
+            textView.text = ""
+        }
+        textView.textAlignment = NSTextAlignment.Natural
     }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        if textView.text == "" {
+            textView.text = kPlaceNamePlaceholder
+        }
+        textView.textAlignment = NSTextAlignment.Center
+    }
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
+    private func displayAlert(title: String, message: String, actionTitle: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: actionTitle, style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
 }

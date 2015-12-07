@@ -64,6 +64,19 @@ class HTTPClient {
         return true
     }
     
+    /**
+        Parses NSData and returns a JSON object 
+    */
+    func dataToJson(data: NSData) -> AnyObject? {
+        var parsedResult: AnyObject? = nil
+        do {
+            parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+        } catch {
+            print("Could not parse session response: '\(data)'")
+        }
+        return parsedResult
+    }
+    
     private func sendRequest(request: NSURLRequest, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) {
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request, completionHandler: completionHandler)
