@@ -60,8 +60,10 @@ class InfoPostingViewController: UIViewController, UITextViewDelegate {
     @IBAction func findPlaceOnMap(sender: UIButton) {
         currentCoordinate = nil
         if let text = placeName.text {
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             geocoder.geocodeAddressString(text, completionHandler:  {
                 placemarks, error in
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 if let err = error {
                     print("Error geocoding location \(err)")
                     self.displayAlert("Error", message: "Cannot find that location!", actionTitle: "Try Again")
@@ -101,7 +103,7 @@ class InfoPostingViewController: UIViewController, UITextViewDelegate {
     private func displayAlert(title: String, message: String, actionTitle: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: actionTitle, style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        presentViewController(alert, animated: true, completion: nil)
     }
     
 }

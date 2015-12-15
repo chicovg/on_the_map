@@ -74,7 +74,9 @@ class InfoPostingMapViewController: UIViewController, UITextViewDelegate {
                     void in
                     print("failure creating student location")
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                    self.displayAlert("Error", message: "Failed to create new info post", actionTitle: "Dismiss")
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.displayAlert("Error", message: "Failed to create new info post", actionTitle: "Dismiss")
+                    })
                 })
         }
     }
@@ -116,6 +118,6 @@ class InfoPostingMapViewController: UIViewController, UITextViewDelegate {
     private func displayAlert(title: String, message: String, actionTitle: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: actionTitle, style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        presentViewController(alert, animated: true, completion: nil)
     }
 }

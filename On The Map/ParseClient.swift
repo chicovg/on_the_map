@@ -30,8 +30,10 @@ class ParseClient : HTTPClient {
      
      */
     func getStudentLocations(successHandler: (studentLocations:[StudentLocation]) -> Void, failureHandler: () -> Void) {
-        let httpHeaders = [kParseAppIdHeader: kParseAppId, kParseRestApiKeyHeader : kParseRestApiKey]
-        self.get(kStudentLocationUrl, httpHeaders: httpHeaders, completionHandler: {
+        let httpHeaders = [kParseAppIdHeader: kParseAppId,
+            kParseRestApiKeyHeader : kParseRestApiKey,
+            "limit": "100", "order": "-updatedAt"]
+        get(kStudentLocationUrl, httpHeaders: httpHeaders, completionHandler: {
             data, response, error in
             if self.responseSuccessful(response, error: error) {
                 if let data = data {
@@ -49,7 +51,7 @@ class ParseClient : HTTPClient {
     func postStudentLocation(location: StudentLocation, successHandler: () -> Void, failureHandler: () -> Void) {
         let httpHeaders = [kParseAppIdHeader: kParseAppId, kParseRestApiKeyHeader : kParseRestApiKey]
         let httpBody = location.asJsonString()
-        self.post(kStudentLocationUrl, httpHeaders: httpHeaders, httpBody: httpBody, completionHandler: {
+        post(kStudentLocationUrl, httpHeaders: httpHeaders, httpBody: httpBody, completionHandler: {
             data, response, error in
             if self.responseSuccessful(response, error: error) {
                 successHandler()

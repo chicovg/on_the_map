@@ -110,7 +110,7 @@ class UsersMapViewController: UIViewController, MKMapViewDelegate {
     private func displayAlert(title: String, message: String, actionTitle: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: actionTitle, style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        presentViewController(alert, animated: true, completion: nil)
     }
 
 }

@@ -12,8 +12,6 @@ class UsersTableViewController: UITableViewController {
     
     let kTableToInfoPostView = "tableToInfoPostView"
     let reuseIdentifier = "studentLocationCell"
-    
-    var locations: [StudentLocation] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,10 +45,14 @@ class UsersTableViewController: UITableViewController {
     @IBAction func logout(sender: UIBarButtonItem) {
         UdacityClient.sharedInstance.deleteSession({() -> Void in
             print("logged out")
-            self.performSegueWithIdentifier(kUnwindToLoginView, sender: nil)
+            dispatch_async(dispatch_get_main_queue(), {
+                self.performSegueWithIdentifier(kUnwindToLoginView, sender: nil)
+            })
         }) { () -> Void in
             print("could not log out!")
-            self.performSegueWithIdentifier(kUnwindToLoginView, sender: nil)
+            dispatch_async(dispatch_get_main_queue(), {
+                self.performSegueWithIdentifier(kUnwindToLoginView, sender: nil)
+            })
         }
     }
     @IBAction func refreshLocations(sender: UIBarButtonItem) {
@@ -106,7 +108,7 @@ class UsersTableViewController: UITableViewController {
     private func displayAlert(title: String, message: String, actionTitle: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: actionTitle, style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        presentViewController(alert, animated: true, completion: nil)
     }
 
 }

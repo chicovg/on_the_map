@@ -21,9 +21,6 @@ class StudentLocationCache {
     
     func updateLocations(locations: [StudentLocation]) {
         self.locations = locations
-        self.locations.sortInPlace { compare, to in
-            return compare.createdAt!.compare(to.createdAt!) == NSComparisonResult.OrderedDescending
-        }
         loaded = true
     }
     
