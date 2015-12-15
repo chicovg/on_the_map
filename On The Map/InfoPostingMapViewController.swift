@@ -34,10 +34,12 @@ class InfoPostingMapViewController: UIViewController, UITextViewDelegate {
                 
                     // place pin on map and zoom in
                     let annotation = LocationAnnotation(name: "\(studentInfo.firstName) \(studentInfo.lastName)", url: "", coordinate: CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude))
-                    self.infoPostMapView.addAnnotation(annotation)
                     let span = MKCoordinateSpanMake(2.0, 2.0)
                     let region = MKCoordinateRegionMake(coordinate, span)
-                    self.infoPostMapView.setRegion(region, animated: true)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.infoPostMapView.addAnnotation(annotation)
+                        self.infoPostMapView.setRegion(region, animated: true)
+                    })
                 }, failureHandler: {
                     void in
                     print("Could not get student info")
@@ -60,20 +62,25 @@ class InfoPostingMapViewController: UIViewController, UITextViewDelegate {
     @IBAction func submitPost(sender: UIButton) {
         if let coordinate = currentCoordinate, placeName = placeName, studentInfo = studentInfo, url = urlValue.text {
             let studenLocation = StudentLocation(uniqueKey: studentInfo.uniqueKey, firstName: studentInfo.firstName, lastName: studentInfo.lastName, mapString: placeName, mediaURL: url, latitude: coordinate.latitude, longitude: coordinate.longitude)
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             ParseClient.sharedInstance.postStudentLocation(studenLocation, successHandler: {
                     void in
                     print("successfully created new student location")
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.exit()
+                    })
                 }, failureHandler: {
                     void in
                     print("failure creating student location")
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    self.displayAlert("Error", message: "Failed to create new info post", actionTitle: "Dismiss")
                 })
         }
     }
     
     @IBAction func cancel(sender: UIButton) {
-        if let segue = cancelSegue {
-            performSegueWithIdentifier(segue, sender: nil)
-        }
+        exit()
     }
     
     // MARK: UITextViewDelegate
@@ -97,5 +104,18 @@ class InfoPostingMapViewController: UIViewController, UITextViewDelegate {
             return false
         }
         return true
+    }
+    
+    // MARK: helpers
+    private func exit(){
+        if let segue = cancelSegue {
+            performSegueWithIdentifier(segue, sender: nil)
+        }
+    }
+    
+    private func displayAlert(title: String, message: String, actionTitle: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: actionTitle, style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 }

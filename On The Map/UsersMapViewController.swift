@@ -20,7 +20,7 @@ class UsersMapViewController: UIViewController, MKMapViewDelegate {
 
         // Do any additional setup after loading the view.
         mapView.delegate = self
-        getLocations()
+        refreshLocations()
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,20 +43,26 @@ class UsersMapViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func refreshLocations(sender: UIBarButtonItem) {
-        getLocations()
+        refreshLocations()
     }
     
     @IBAction func logout(sender: UIBarButtonItem) {
         UdacityClient.sharedInstance.deleteSession({() -> Void in
             print("logged out")
-            self.performSegueWithIdentifier(kUnwindToLoginView, sender: nil)
+            dispatch_async(dispatch_get_main_queue(), {
+                self.performSegueWithIdentifier(kUnwindToLoginView, sender: nil)
+            })
         }) { () -> Void in
             print("could not log out!")
-            self.performSegueWithIdentifier(kUnwindToLoginView, sender: nil)
+            dispatch_async(dispatch_get_main_queue(), {
+                self.performSegueWithIdentifier(kUnwindToLoginView, sender: nil)
+            })
         }
     }
     
-    @IBAction func unwindToMapView(unwindSeque: UIStoryboardSegue) {}
+    @IBAction func unwindToMapView(unwindSeque: UIStoryboardSegue) {
+        refreshLocations()
+    }
     
     // MARK: MKMapViewDelegate
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -72,28 +78,39 @@ class UsersMapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if let annotation = view.annotation as? LocationAnnotation {
-            if let url = NSURL(string: annotation.url) {
-                UIApplication.sharedApplication().openURL(url)
-            }
+        if let annotation = view.annotation as? LocationAnnotation, url = NSURL(string: annotation.url) {
+            UIApplication.sharedApplication().openURL(url)
         }
     }
     
-    // MARK: helpers
-    private func getLocations() {
+    private func refreshLocations() {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         ParseClient.sharedInstance.getStudentLocations({
             locations in
-            print("fetched locations")
-            dispatch_async(dispatch_get_main_queue(), {
-                for loc in locations {
-                    let annotation = LocationAnnotation(name: "\(loc.firstName) \(loc.lastName)", url: loc.mediaURL, coordinate: CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude))
+                print("fetched \(locations.count) locations")
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                StudentLocationCache.sharedInstance.updateLocations(locations)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.mapView.removeAnnotations(self.mapView.annotations)
+                    for loc in StudentLocationCache.sharedInstance.locations {
+                        let annotation = LocationAnnotation(name: "\(loc.firstName) \(loc.lastName)", url: loc.mediaURL, coordinate: CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude))
                     
-                    self.mapView.addAnnotation(annotation)
-                }
-            })
-        }) { () -> Void in
+                        self.mapView.addAnnotation(annotation)
+                    }
+                })
+            }) { () -> Void in
                 print("Could not fetch locations")
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.displayAlert("Error", message: "Could not download locations.", actionTitle: "Dismiss")
+                })
         }
+    }
+    
+    private func displayAlert(title: String, message: String, actionTitle: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: actionTitle, style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 
 }

@@ -27,7 +27,7 @@ class UdacityClient : HTTPClient {
         If the request is successful ..
         If the request fails, the specified failure handler will be executed
      */
-    func postNewSession(email: String, password: String, successHandler: () -> Void, failureHandler: () -> Void){
+    func postNewSession(email: String, password: String, successHandler: () -> Void, failureHandler: (errorMsg: String) -> Void){
         let url = kUdacityBaseUrl + kSessionPath
         let httpHeaders: [String: String] = ["Accept":"application/json", "Content-Type":"application/json"]
         let httpBody = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}"
@@ -45,19 +45,19 @@ class UdacityClient : HTTPClient {
                     // Parse data and get account details
                     guard let parsedResult = self.dataToJson(newData) as? [String: AnyObject] else {
                         print("Could not parse session response: '\(newData)'")
-                        failureHandler()
+                        failureHandler(errorMsg: "Failed to get user data from Udacity")
                         return
                     }
                     
                     guard let account = parsedResult["account"] as? [String: AnyObject] else {
                         print("Could not get user account info from session response: '\(parsedResult)'")
-                        failureHandler()
+                        failureHandler(errorMsg: "Failed to get user data from Udacity")
                         return
                     }
                     
                     guard let accountKey = account["key"] as? String else {
                         print("Could not get user key from account info in session response: '\(account)'")
-                        failureHandler()
+                        failureHandler(errorMsg: "Failed to get user data from Udacity")
                         return
                     }
                     
@@ -65,8 +65,79 @@ class UdacityClient : HTTPClient {
                     successHandler()
                     return
                 }
+            } else {
+                if let response = response as? NSHTTPURLResponse {
+                    if response.statusCode == 403 {
+                        failureHandler(errorMsg: "Invalid credentials")
+                        return
+                    } else if response.statusCode == 408 {
+                        failureHandler(errorMsg: "Request Timeout")
+                        return
+                    }
+                }
+                
+                if let err = error {
+                    failureHandler(errorMsg: err.localizedDescription)
+                } else {
+                    failureHandler(errorMsg: "An unexpected exception occurred")
+                }
             }
-            failureHandler()
+        })
+    }
+    
+    /** 
+     Uses the Udacity session API to create a new session using
+     If the request is successful ..
+     If the request fails, the specified failure handler will be executed
+     */
+    func postNewFacebookSession(token: String, successHandler: () -> Void, failureHandler: (errorMsg: String) -> Void){
+        let url = kUdacityBaseUrl + kSessionPath
+        let httpHeaders: [String: String] = ["Accept":"application/json", "Content-Type":"application/json"]
+        let httpBody = "{\"facebook_mobile\": {\"access_token\": \"\(token)\"}}"
+        
+        post(url, httpHeaders: httpHeaders, httpBody: httpBody, completionHandler: {
+            data, response, error in
+            
+            if self.responseSuccessful(response, error: error) {
+                if let data = data {
+                    
+                    // subset response data!
+                    let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+                    print(NSString(data: newData, encoding: NSUTF8StringEncoding))
+                    
+                    // Parse data and get account details
+                    guard let parsedResult = self.dataToJson(newData) as? [String: AnyObject] else {
+                        print("Could not parse session response: '\(newData)'")
+                        failureHandler(errorMsg: "Failed to get user data from Udacity")
+                        return
+                    }
+                    
+                    guard let account = parsedResult["account"] as? [String: AnyObject] else {
+                        print("Could not get user account info from session response: '\(parsedResult)'")
+                        failureHandler(errorMsg: "Failed to get user data from Udacity")
+                        return
+                    }
+                    
+                    guard let accountKey = account["key"] as? String else {
+                        print("Could not get user key from account info in session response: '\(account)'")
+                        failureHandler(errorMsg: "Failed to get user data from Udacity")
+                        return
+                    }
+                    
+                    self.currentUserKey = accountKey
+                    successHandler()
+                    return
+                }
+            } else {
+                if let response = response as? NSHTTPURLResponse {
+                    if response.statusCode == 403 {
+                        failureHandler(errorMsg: "Invalid credentials")
+                    } else if response.statusCode == 408 {
+                        failureHandler(errorMsg: "Request Timeout")
+                    }
+                }
+                failureHandler(errorMsg: "An unexpected error occurred")
+            }
         })
     }
     
@@ -121,8 +192,6 @@ class UdacityClient : HTTPClient {
                     if let data = data {
                         
                         let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-                        print(NSString(data: newData, encoding: NSUTF8StringEncoding))
-                        
                         if let studentInfo = self.studentLocationFromUserData(newData) {
                             successHandler(studentInfo: studentInfo)
                         } else {

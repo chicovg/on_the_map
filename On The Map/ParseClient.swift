@@ -48,7 +48,7 @@ class ParseClient : HTTPClient {
      */
     func postStudentLocation(location: StudentLocation, successHandler: () -> Void, failureHandler: () -> Void) {
         let httpHeaders = [kParseAppIdHeader: kParseAppId, kParseRestApiKeyHeader : kParseRestApiKey]
-        let httpBody = studentLocationToJsonString(location)
+        let httpBody = location.asJsonString()
         self.post(kStudentLocationUrl, httpHeaders: httpHeaders, httpBody: httpBody, completionHandler: {
             data, response, error in
             if self.responseSuccessful(response, error: error) {
@@ -77,54 +77,10 @@ class ParseClient : HTTPClient {
         }
         
         for result in results {
-            if let location = dictionaryToStudentLocation(result) {
-                locations.append(location)
-            }
+            locations.append(StudentLocation(fromDictionary: result))
         }
         
         return locations
-    }
-    
-    private func dictionaryToStudentLocation(dictionary: [String: AnyObject]) -> StudentLocation? {
-        var studentLocation: StudentLocation? = nil
-        
-        // if required attributes are present, create StudentLocation struct, else return nil
-        if let objectId = dictionary["objectId"] as? String,
-            firstName = dictionary["firstName"] as? String,
-            lastName = dictionary["lastName"] as? String,
-            mapString = dictionary["mapString"] as? String,
-            mediaURL = dictionary["mediaURL"] as? String,
-            latitude = dictionary["latitude"] as? NSNumber,
-            longitude = dictionary["longitude"] as? NSNumber {
-                studentLocation = StudentLocation(objectId: objectId, firstName: firstName, lastName: lastName, mapString: mapString, mediaURL: mediaURL, latitude: latitude.doubleValue, longitude: longitude.doubleValue)
-        } else {
-            return nil
-        }
-        
-        // add optional attributes if present
-        if let uniqueKey = dictionary["uniqueKey"] as? String {
-            studentLocation?.uniqueKey = uniqueKey
-        }
-        
-        if let createdAtString = dictionary["createdAt"] as? String, createdAtDate = dateFormatter.dateFromString(createdAtString) {
-            studentLocation?.createdAt = createdAtDate
-        }
-        
-        if let updatedAtString = dictionary["updatedAt"] as? String, updatedAtDate = dateFormatter.dateFromString(updatedAtString) {
-            studentLocation?.updatedAt = updatedAtDate
-        }
-        
-        return studentLocation
-    }
-    
-    private func studentLocationToJsonString(studentLocation: StudentLocation) -> String {
-        return "{\"uniqueKey\": \"\(studentLocation.uniqueKey)\", " +
-               " \"firstName\": \"\(studentLocation.firstName)\", " +
-               " \"lastName\": \"\(studentLocation.lastName)\", " +
-               " \"mapString\": \"\(studentLocation.mapString)\", " +
-               " \"mediaURL\": \"\(studentLocation.mediaURL)\", " +
-               " \"latitude\": \(studentLocation.latitude), " +
-               " \"longitude\": \(studentLocation.longitude)}"
     }
     
 }

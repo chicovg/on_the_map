@@ -44,6 +44,7 @@ class InfoPostingViewController: UIViewController, UITextViewDelegate {
             if let postMapVC = segue.destinationViewController as? InfoPostingMapViewController {
                 postMapVC.cancelSegue = cancelSegue
                 postMapVC.currentCoordinate = currentCoordinate
+                postMapVC.placeName = placeName.text
             }
         }
     }
@@ -96,6 +97,7 @@ class InfoPostingViewController: UIViewController, UITextViewDelegate {
         return true
     }
     
+    // MARK: helpers
     private func displayAlert(title: String, message: String, actionTitle: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: actionTitle, style: UIAlertActionStyle.Default, handler: nil))
